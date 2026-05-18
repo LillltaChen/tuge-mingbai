@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>项目背景 — 图个明白</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-secondary: #64748b;
+      --text-tertiary: #94a3b8;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      --accent: #6366f1;
+      --accent-light: #8b5cf6;
+      --accent-bg: #eef2ff;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --radius: 16px;
+      --radius-sm: 12px;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+      --shadow: 0 4px 20px rgba(0,0,0,0.06);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      font-size: 16px;
+    }
+
+    /* ===== Back Link ===== */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-decoration: none;
+      margin-bottom: 12px;
+      transition: color 0.15s;
+    }
+
+    .back-link:hover { color: var(--accent); }
+
+    /* ===== Layout ===== */
+    .page-wrapper {
+      display: flex;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+      gap: 40px;
+    }
+
+    @media (max-width: 860px) {
+      .page-wrapper {
+        flex-direction: column;
+        padding: 24px 24px 80px;
+        gap: 24px;
+      }
+    }
+
+    .sidebar {
+      width: 220px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 24px;
+      align-self: flex-start;
+      height: calc(100vh - 48px);
+      overflow-y: auto;
+    }
+
+    @media (max-width: 860px) {
+      .sidebar {
+        width: 100%;
+        position: static;
+        height: auto;
+        overflow: visible;
+      }
+    }
+
+    .sidebar::-webkit-scrollbar { width: 3px; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .main-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* Header */
+    .article-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .article-header .subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .article-meta {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    .article-meta .dot {
+      width: 4px;
+      height: 4px;
+      background: var(--text-tertiary);
+      border-radius: 50%;
+    }
+
+    /* TOC Sidebar */
+    .toc {
+      padding: 0;
+    }
+
+    .toc-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .toc-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .toc-list li {
+      margin-bottom: 2px;
+    }
+
+    .toc-list a {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: block;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: all 0.15s;
+      line-height: 1.5;
+    }
+
+    .toc-list a:hover {
+      color: var(--accent);
+      background: var(--accent-bg);
+    }
+
+    .toc-list a.active {
+      color: var(--accent);
+      background: var(--accent-bg);
+      font-weight: 600;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 40px;
+    }
+
+    section h2 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    section h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 32px 0 14px;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    section p {
+      margin-bottom: 16px;
+      color: var(--text-secondary);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    section p strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* Blockquote */
+    blockquote {
+      background: linear-gradient(135deg, var(--accent-bg) 0%, rgba(139,92,246,0.06) 100%);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 20px 24px;
+      margin: 28px 0;
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    blockquote p:last-child { margin-bottom: 0; }
+
+    /* Ordered list */
+    ol.steps {
+      list-style: none;
+      counter-reset: step;
+      padding: 0;
+      margin: 24px 0;
+    }
+
+    ol.steps li {
+      position: relative;
+      padding-left: 44px;
+      margin-bottom: 16px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    ol.steps li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Unordered list */
+    ul.details {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    ul.details li {
+      position: relative;
+      padding-left: 22px;
+      margin-bottom: 12px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    ul.details li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 2px;
+      opacity: 0.4;
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 28px 0;
+      border-radius: var(--radius);
+      border: 0.5px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 0.5px solid var(--border-light);
+    }
+
+    th {
+      background: var(--bg);
+      font-weight: 600;
+      color: var(--text-secondary);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    td { color: var(--text); }
+
+    td code {
+      background: var(--accent-bg);
+      color: var(--accent);
+      padding: 2px 8px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-family: 'SF Mono', SFMono-Regular, ui-monospace, monospace;
+    }
+
+    /* Highlight box */
+    .highlight-box {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin: 28px 0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .highlight-box h3 {
+      margin-top: 0;
+      font-size: 16px;
+    }
+
+    /* Arch diagram */
+    .arch-flow {
+      background: #0f172a;
+      border-radius: var(--radius);
+      padding: 32px;
+      margin: 28px 0;
+      font-family: 'SF Mono', SFMono-Regular, ui-monospace, monospace;
+      font-size: 13px;
+      line-height: 2.2;
+      color: #cbd5e1;
+      overflow-x: auto;
+    }
+
+    .arch-flow .comment { color: #64748b; }
+    .arch-flow .arrow { color: #a5b4fc; }
+    .arch-flow .step { color: #86efac; }
+
+    /* Philosophy cards */
+    .philosophy-grid {
+      display: grid;
+      gap: 16px;
+      margin: 28px 0;
+    }
+
+    .philosophy-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      transition: all 0.2s;
+    }
+
+    .philosophy-card:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-1px);
+    }
+
+    .philosophy-card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .philosophy-card p {
+      margin-bottom: 0;
+      font-size: 15px;
+    }
+
+    /* Roadmap */
+    .roadmap-section {
+      margin-bottom: 20px;
+    }
+
+    .roadmap-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .roadmap-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .roadmap-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      color: var(--text-secondary);
+      font-size: 15px;
+      border-bottom: 0.5px solid var(--border-light);
+    }
+
+    .roadmap-list li:last-child { border-bottom: none; }
+
+    .roadmap-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--accent);
+    }
+
+    .roadmap-check.done {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    /* Final quote */
+    .final-quote {
+      text-align: center;
+      padding: 48px 32px;
+      margin-top: 64px;
+      background: linear-gradient(135deg, var(--accent-bg) 0%, rgba(139,92,246,0.06) 100%);
+      border-radius: var(--radius);
+      border: 0.5px solid rgba(99,102,241,0.15);
+    }
+
+    .final-quote p {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .final-quote .author {
+      font-size: 14px;
+      color: var(--text-tertiary);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 0.5px solid var(--border);
+      margin-top: 40px;
+    }
+
+    footer p {
+      font-size: 14px;
+      color: var(--text-tertiary);
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-wrapper">
+    <aside class="sidebar">
+      <a href="index.html" class="back-link">← 返回介绍页</a>
+      <nav class="toc">
+        <div class="toc-title">目录</div>
+        <ul class="toc-list">
+          <li><a href="#origin">缘起：反复出现的场景</a></li>
+          <li><a href="#pain">痛点拆解</a></li>
+          <li><a href="#solution">解决方式</a></li>
+          <li><a href="#value">产品价值主张</a></li>
+          <li><a href="#diff">差异化优势</a></li>
+          <li><a href="#philosophy">设计哲学</a></li>
+          <li><a href="#tech">技术选型思考</a></li>
+          <li><a href="#future">未来演进方向</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <article class="main-content">
+      <header class="article-header reveal">
+        <h1>项目背景</h1>
+        <p class="subtitle">一个从「看见好图却写不出提示词」的真实痛点中生长出来的 Chrome 扩展</p>
+        <div class="article-meta">
+          <span>Chrome Extension</span>
+          <span class="dot"></span>
+          <span>Manifest V3</span>
+          <span class="dot"></span>
+          <span>AI Vision</span>
+        </div>
+      </header>
+
+    <section id="origin" class="reveal">
+      <h2>一、缘起</h2>
+      <p>2024 年，AI 绘图工具（Midjourney、Stable Diffusion、DALL·E）已经进入创作者的日常 workflow。但几乎每一个使用者都经历过这样的时刻：</p>
+
+      <blockquote>
+        刷 Pinterest、逛 ArtStation、看小红书时，突然看到一张惊艳的图——光影、构图、色调都恰到好处。心里涌起一个念头：<strong>「这张图如果用 AI 做出来，提示词该怎么写？」</strong>
+      </blockquote>
+
+      <p>于是开始了经典的<strong>「折腾五步曲」</strong>：</p>
+
+      <ol class="steps">
+        <li><strong>截图</strong> — 用系统截图工具框选图片</li>
+        <li><strong>打开 ChatGPT/Claude</strong> — 切到另一个标签页或 App</li>
+        <li><strong>上传 + 打字</strong> — 「请分析这张图，生成 Midjourney 提示词」</li>
+        <li><strong>等待 + 调整</strong> — AI 返回一段文字，往往格式混乱、中英混杂</li>
+        <li><strong>复制粘贴</strong> — 把结果拷贝到绘图工具的输入框</li>
+      </ol>
+
+      <p>整个过程<strong>超过 2 分钟</strong>，且伴随着频繁的上下文切换。更糟的是，当你想批量分析一组风格统一的参考图时，这个流程会重复 N 次，效率极低。</p>
+
+      <p>这个场景反复出现，<strong>足够痛、足够高频</strong>，却没有人做一个「右键即达」的轻量工具来解决它。</p>
+    </section>
+
+    <section id="pain" class="reveal">
+      <h2>二、痛点拆解</h2>
+
+      <h3>🔴 核心痛点：图片→提示词的转化链路太长</h3>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>环节</th>
+              <th>问题</th>
+              <th>时间成本</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>获取图片</td>
+              <td>截图、保存、上传，多一步操作</td>
+              <td>~20s</td>
+            </tr>
+            <tr>
+              <td>切换应用</td>
+              <td>离开当前页面，打断心流</td>
+              <td>~10s</td>
+            </tr>
+            <tr>
+              <td>描述需求</td>
+              <td>每次都要打字说明「分析这张图生成提示词」</td>
+              <td>~15s</td>
+            </tr>
+            <tr>
+              <td>结果整理</td>
+              <td>AI 返回大段文字，需要手动提取有效信息</td>
+              <td>~30s</td>
+            </tr>
+            <tr>
+              <td>格式调整</td>
+              <td>中英文混杂、没有结构，需要二次编辑</td>
+              <td>~45s</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p><strong>单次成本 ≈ 2 分钟，高频用户一天可能重复 10-20 次。</strong></p>
+
+      <h3>🟡 衍生痛点</h3>
+
+      <ul class="details">
+        <li><strong>提示词质量不稳定</strong> — 不同 AI 模型返回的格式差异大，有的像散文、有的像标签云，没有统一的结构化输出</li>
+        <li><strong>缺乏历史回溯</strong> — 昨天分析过的一张图，今天想再参考，找不到了，没有「我的灵感库」概念</li>
+        <li><strong>批量处理困难</strong> — 做一套风格统一的素材时，需要一张张分析，没有队列管理和进度可视化</li>
+        <li><strong>双语需求割裂</strong> — 英文平台需要英文 Prompt，中文社区分享需要中文解释，两者需要手动互译，容易失真</li>
+      </ul>
+    </section>
+
+    <section id="solution" class="reveal">
+      <h2>三、解决方式</h2>
+
+      <blockquote>
+        <strong>「所见即所得，右键即分析」</strong><br>
+        用户不需要离开当前页面，不需要上传文件，不需要打字描述需求。
+      </blockquote>
+
+      <h3>产品架构</h3>
+
+      <div class="arch-flow">
+        <span class="step">用户右键点击图片</span><br>
+        <span class="arrow">    │</span><br>
+        <span class="arrow">    ▼</span><br>
+        <span class="comment">扩展自动提取图片 URL → 转为 base64</span><br>
+        <span class="arrow">    │</span><br>
+        <span class="arrow">    ▼</span><br>
+        <span class="comment">调用 GPT-4o Vision API 分析图像内容</span><br>
+        <span class="arrow">    │</span><br>
+        <span class="arrow">    ▼</span><br>
+        <span class="step">返回结构化 JSON：{english, chinese, style, tags}</span><br>
+        <span class="arrow">    │</span><br>
+        <span class="arrow">    ▼</span><br>
+        <span class="comment">在页面内以浮窗形式直接展示结果</span><br>
+        <span class="arrow">    │</span><br>
+        <span class="arrow">    ▼</span><br>
+        <span class="step">一键复制 / 点击标签复制 / 实时编辑同步翻译</span>
+      </div>
+
+      <p><strong>全链路时间：3-8 秒（含 API 响应）</strong></p>
+
+      <h3>关键设计决策</h3>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>决策</th>
+              <th>理由</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Chrome Extension 形态</strong></td>
+              <td>浏览器是图片消费的天然场景，扩展可以无缝嵌入右键菜单</td>
+            </tr>
+            <tr>
+              <td><strong>Manifest V3</strong></td>
+              <td>符合 Chrome 商店最新规范，Service Worker 架构更轻量</td>
+            </tr>
+            <tr>
+              <td><strong>纯 Vanilla JS</strong></td>
+              <td>无框架依赖，扩展体积 &lt; 100KB，加载零延迟</td>
+            </tr>
+            <tr>
+              <td><strong>页面内浮窗</strong></td>
+              <td>不离开当前页面，不打断浏览心流，可拖拽缩放</td>
+            </tr>
+            <tr>
+              <td><strong>JSON 结构化输出</strong></td>
+              <td>让 AI 返回标准格式，前端统一解析展示，结果可控</td>
+            </tr>
+            <tr>
+              <td><strong>本地 LRU 缓存</strong></td>
+              <td>20 条历史记录本地存储，重复图片秒出结果，节省 Token</td>
+            </tr>
+            <tr>
+              <td><strong>批量队列系统</strong></td>
+              <td>支持多张图片并行/串行分析，带进度面板和状态管理</td>
+            </tr>
+            <tr>
+              <td><strong>中英实时同步</strong></td>
+              <td>编辑提示词时自动调用 API 翻译，800ms debounce，避免频繁请求</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="value" class="reveal">
+      <h2>四、产品价值主张</h2>
+
+      <div class="philosophy-grid">
+        <div class="philosophy-card">
+          <h3>🎨 对 AI 绘图创作者</h3>
+          <p><strong>省时间</strong> — 单次分析从 2 分钟 → 5 秒，一天节省 30 分钟以上<br>
+          <strong>提质量</strong> — 结构化提示词 + 风格标签，直接可用，无需二次整理<br>
+          <strong>建灵感库</strong> — 历史记录自动保存，随时回顾已分析的参考图</p>
+        </div>
+        <div class="philosophy-card">
+          <h3>👁️ 对设计师/视觉从业者</h3>
+          <p><strong>快速拆解风格</strong> — 看到好图，立刻知道「光线怎么打」「色调怎么调」「构图怎么排」<br>
+          <strong>批量收集素材</strong> — 一组风格统一的参考图，批量分析后统一归档</p>
+        </div>
+        <div class="philosophy-card">
+          <h3>🌱 对 AI 工具初学者</h3>
+          <p><strong>降低门槛</strong> — 不需要学习复杂的提示词语法，看图就能学会怎么描述<br>
+          <strong>双语对照</strong> — 中文理解画面，英文直接复制到绘图工具</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="diff" class="reveal">
+      <h2>五、差异化优势</h2>
+
+      <p>市面上并非没有「图片反推提示词」的工具，但它们的体验普遍停留在「工具」层面，而非「workflow 的一部分」：</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>现有方案</th>
+              <th>问题</th>
+              <th>图个明白的改进</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>在线网页工具</td>
+              <td>需要上传图片、离开当前页面</td>
+              <td>右键即用，不离页</td>
+            </tr>
+            <tr>
+              <td>Discord 机器人</td>
+              <td>需在 Discord 内操作，格式受限</td>
+              <td>浏览器原生体验，格式自由</td>
+            </tr>
+            <tr>
+              <td>桌面端 AI 工具</td>
+              <td>需要安装 heavyweight 软件</td>
+              <td>浏览器扩展，&lt; 100KB</td>
+            </tr>
+            <tr>
+              <td>油猴脚本</td>
+              <td>功能简陋、无 UI、不稳定</td>
+              <td>完整浮窗面板、缓存、队列、主题切换</td>
+            </tr>
+            <tr>
+              <td>直接问 ChatGPT</td>
+              <td>每次打字描述需求、结果格式不一致</td>
+              <td>一键触发、JSON 结构化、可编辑同步</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <blockquote>
+        <strong>核心差异：不是「多了一个工具」，而是「减少了一层阻碍」。</strong><br><br>
+        用户不需要「打开某个东西来做某事」——他们只是在正常浏览网页，右键一下，答案就出现了。
+      </blockquote>
+    </section>
+
+    <section id="philosophy" class="reveal">
+      <h2>六、设计哲学</h2>
+
+      <div class="philosophy-grid">
+        <div class="philosophy-card">
+          <h3>👻 隐形的工具</h3>
+          <p>好的工具应该像空气一样存在——你需要它的时候它在，不需要的时候完全不打扰。图个明白没有常驻 UI，没有通知推送，只有在右键菜单里静静等待的那一行字。</p>
+        </div>
+        <div class="philosophy-card">
+          <h3>✨ 愉悦的细节</h3>
+          <p>AI 分析时的「扫描动画」、复制按钮的涟漪反馈、拖拽时的弹性阴影、明暗主题的丝滑切换……这些细节不会让工具「更快」，但会让用户「更愿意用」。</p>
+        </div>
+        <div class="philosophy-card">
+          <h3>🔒 尊重隐私</h3>
+          <p>API Key 和历史记录<strong>只存在本地浏览器</strong>，不上传任何数据到第三方服务器，用户对自己的数据有完全控制权。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="tech" class="reveal">
+      <h2>七、技术选型思考</h2>
+
+      <h3>为什么不用 React/Vue？</h3>
+      <p>扩展的 content script 注入到每一个网页，框架体积（即使压缩后几十 KB）会增加页面负担，且可能与宿主页面的框架冲突。Vanilla JS 手写虽然代码量大，但<strong>完全可控、零依赖、零冲突</strong>。</p>
+
+      <h3>为什么选 OpenAI Vision API？</h3>
+      <ul class="details">
+        <li><strong>理解精度</strong> — GPT-4o 对图像的风格、构图、光影、情绪有极强的描述能力</li>
+        <li><strong>输出可控</strong> — 通过 system prompt 约束返回 JSON 格式，结果结构化</li>
+        <li><strong>生态兼容</strong> — 支持任意 OpenAI 兼容接口（Gemini、Claude、自托管模型均可接入）</li>
+      </ul>
+
+      <h3>为什么做本地缓存而非云端？</h3>
+      <ul class="details">
+        <li>减少 API 调用成本（重复图片不花钱）</li>
+        <li>保护用户隐私（图片 URL 不出本地）</li>
+        <li>即时响应（缓存命中时 &lt; 100ms 出结果）</li>
+      </ul>
+    </section>
+
+    <section id="future" class="reveal">
+      <h2>八、未来演进方向</h2>
+
+      <div class="roadmap-section">
+        <div class="roadmap-title">🚀 近期（已规划）</div>
+        <ul class="roadmap-list">
+          <li><span class="roadmap-check"></span>支持更多模型（Claude 3.5 Sonnet、Gemini 1.5 Pro、本地 LLaVA）</li>
+          <li><span class="roadmap-check"></span>提示词收藏夹（手动保存喜欢的提示词，独立于历史）</li>
+          <li><span class="roadmap-check"></span>一键发送到 Midjourney / Stable Diffusion WebUI</li>
+        </ul>
+      </div>
+
+      <div class="roadmap-section">
+        <div class="roadmap-title">🔭 中期（探索中）</div>
+        <ul class="roadmap-list">
+          <li><span class="roadmap-check"></span>风格迁移：分析完图片后，直接生成「同款风格但不同主题」的变体提示词</li>
+          <li><span class="roadmap-check"></span>批量导出：将历史记录导出为 Markdown / Notion / Obsidian 格式</li>
+          <li><span class="roadmap-check"></span>社区共享：匿名分享优质提示词到公共库（用户可选）</li>
+        </ul>
+      </div>
+
+      <div class="roadmap-section">
+        <div class="roadmap-title">🌟 远期（愿景）</div>
+        <ul class="roadmap-list">
+          <li><span class="roadmap-check"></span>从「提示词生成器」进化为「视觉灵感引擎」——不仅告诉你这张图怎么描述，还能推荐相似风格的作品、关联的艺术家、适合的模型和 LoRA</li>
+          <li><span class="roadmap-check"></span>跨平台：Safari / Firefox 扩展，甚至桌面端全局截图分析</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="final-quote reveal">
+      <p>「图个明白」不是为了替代 AI 绘图工具，<br>而是为了消除「从看到一张图到画出一张图」之间的阻碍。</p>
+      <p style="font-size: 16px; font-weight: 400; color: var(--text-secondary); margin-top: 20px;">
+        希望每一个用过它的人，在右键点击那张让你心动的图片时，<br>能轻轻说一句：<strong>「哦，原来这张图是这么画出来的。」</strong>
+      </p>
+      <div class="author" style="margin-top: 28px;">
+        基于 AI 技术，由 CHEN 设计开发 · Chrome 扩展
+      </div>
+    </div>
+
+    <footer>
+      <p>© 图个明白 · 右键图片，一键生成 AI 提示词</p>
+    </footer>
+  </article>
+</div>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Active TOC highlight
+    const sections = document.querySelectorAll('section[id]');
+    const tocLinks = document.querySelectorAll('.toc-list a');
+
+    const tocObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.toc-list a[href="#${entry.target.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -60% 0px' });
+
+    sections.forEach(section => tocObserver.observe(section));
+
+
+  </script>
+
+</body>
+</html>
