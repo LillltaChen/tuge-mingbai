@@ -152,7 +152,7 @@ async function addToCache(imageUrl, result) {
 }
 
 async function analyzeImage(imageUrl, settings) {
-  const baseUrl = (settings.baseUrl || "https://api.openai.com").replace(/\/$/, "");
+  const baseUrl = (settings.baseUrl || "https://api.openai.com").replace(/\/$/, "").replace(/\/v1$/, "");
   const model = settings.model || "gpt-4o";
   const apiKey = settings.apiKey;
 

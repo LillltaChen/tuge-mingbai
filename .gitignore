@@ -1,0 +1,12 @@
+# macOS 系统文件
+.DS_Store
+
+# 设计素材源文件（非扩展必需）
+design/
+
+# 项目文档与展示页面（如需 GitHub Pages 可取消注释下行）
+docs/
+
+# 临时文件
+*.tmp
+*.log

@@ -29,7 +29,7 @@ document.getElementById("test-btn").onclick = async () => {
   btn.textContent = "测试中...";
   btn.disabled = true;
   try {
-    const baseUrl = (settings.baseUrl || "https://api.openai.com").replace(/\/$/, "");
+    const baseUrl = (settings.baseUrl || "https://api.openai.com").replace(/\/$/, "").replace(/\/v1$/, "");
     const model = settings.model || "gpt-4o";
     const res = await fetch(`${baseUrl}/v1/chat/completions`, {
       method: "POST",
