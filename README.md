@@ -18,7 +18,7 @@
 
 ## 🎬 演示视频
 
-<img src="assets/demo.gif" width="100%" alt="演示：右键图片生成 AI 提示词">
+![演示：右键图片生成 AI 提示词](https://raw.githubusercontent.com/banbei-sys/tuge-mingbai/main/assets/demo.gif)
 
 > 在任意网页右键点击图片，3-8 秒内获得结构化提示词。[查看完整视频 →](https://banbei-sys.github.io/tuge-mingbai/)
 
