@@ -18,7 +18,7 @@
 
 ## 🎬 演示视频
 
-https://github.com/user-attachments/assets/demo.mp4
+<video src="https://github.com/banbei-sys/tuge-mingbai/raw/main/assets/demo.mp4" width="100%" autoplay loop muted playsinline></video>
 
 > 在任意网页右键点击图片，3-8 秒内获得结构化提示词。
 
