@@ -16,6 +16,12 @@
 
 ---
 
+## 🎬 演示视频
+
+https://github.com/user-attachments/assets/demo.mp4
+
+> 在任意网页右键点击图片，3-8 秒内获得结构化提示词。
+
 ## ✨ 功能特性
 
 | 功能 | 说明 |
