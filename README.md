@@ -20,7 +20,7 @@
 
 ![演示：右键图片生成 AI 提示词](https://raw.githubusercontent.com/LillltaChen/tuge-mingbai/main/assets/demo.gif)
 
-> 在任意网页右键点击图片，3-8 秒内获得结构化提示词。[查看完整视频 →](https://LillltaChen.github.io/tuge-mingbai/)
+> 在任意网页右键点击图片，3-8 秒内获得结构化提示词。
 
 ## ✨ 功能特性
 
@@ -103,7 +103,7 @@
 基于 AI 技术，由 **CHEN** 设计开发
 
 - GitHub: [@LillltaChen](https://github.com/LillltaChen)
-- 项目主页: [图个明白 — 项目介绍](https://LillltaChen.github.io/tuge-mingbai/)
+- 项目主页: 本仓库
 
 ---
 
