@@ -2,6 +2,10 @@
 
 > 右键图片，一键生成中英双语 AI 绘图提示词
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/LillltaChen/tuge-mingbai/main/assets/cover.png" width="200" alt="图个明白">
+</p>
+
 ![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-4285F4?logo=googlechrome&logoColor=white)
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-green)
 ![License](https://img.shields.io/badge/License-MIT-blue)
