@@ -484,7 +484,7 @@ function injectStyles() {
   #itp-panel .itp-thumb:active { transform: scale(0.97); }
   #itp-panel .itp-thumb.active { border-color: rgba(0,122,255,0.7); box-shadow: 0 0 0 3px rgba(0,122,255,0.15); }
   #itp-panel .itp-thumb-img { width: 100%; height: 72px; object-fit: cover; display: block; background: rgba(0,0,0,0.05); border-radius: 11px 11px 0 0; }
-  #itp-panel .itp-thumb-meta { padding: 6px 7px 5px; background: rgba(255,255,255,0.85); border-radius: 0 0 11px 11px; }
+  #itp-panel .itp-thumb-meta { padding: 6px 7px 5px; background: rgba(255,255,255,0.85); border-radius: 0 0 11px 11px; text-align: center; }
   #itp-panel .itp-thumb-style { font-size: 10.5px; font-weight: 600; color: rgba(0,0,0,0.72); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 90px; }
   #itp-panel .itp-thumb-time { font-size: 9.5px; color: rgba(0,0,0,0.32); margin-top: 1px; }
   #itp-panel .itp-thumb-x {
